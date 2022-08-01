@@ -35,9 +35,10 @@ export default function App() {
                   )
                );
             });
+            const total = data.total;
             setImagesList(prev => [...prev, ...filterDataHits]);
             setLoading(false);
-            if (data.total !== data.hits.length) {
+            if (data.hits.length > 0 && data.hits.length < total) {
                setShowLoadMore(true);
             }
             if (countPage === 1) {
@@ -46,7 +47,7 @@ export default function App() {
                );
             }
 
-            if (data.total <= countPage * perPage) {
+            if (total <= countPage * perPage) {
                setShowLoadMore(false);
                Notiflix.Notify.info(
                   "Whoops! You've just reached the end of the image list."
@@ -77,7 +78,7 @@ export default function App() {
       }
 
       setSearchName(name);
-      setPerPage(itemsPerPage);
+      setPerPage(perPage);
       setCountPage(1);
       setImagesList([]);
    };
